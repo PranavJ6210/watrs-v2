@@ -25,6 +25,7 @@ import {
     AlertCircle,
 } from "lucide-react";
 import { cn } from "../lib/utils";
+import { WATRS_TAGS, ROAD_ACCESS_OPTIONS, SAFETY_RATINGS } from "../lib/constants";
 
 // ── Step definitions ────────────────────────────────────────────────────────
 const STEPS = [
@@ -32,28 +33,6 @@ const STEPS = [
     { id: 2, title: "Vibe", icon: Sparkles, description: "Set the tags" },
     { id: 3, title: "Safety", icon: ShieldCheck, description: "Accessibility info" },
     { id: 4, title: "Media", icon: Image, description: "Upload photos" },
-];
-
-// ── Predefined WATRS tags (strict enum — no free text) ──────────────────────
-const WATRS_TAGS = [
-    "Nature", "Waterfall", "Trekking", "Heritage", "Beach",
-    "Wildlife", "Tea Estates", "Hills", "Photography", "Adventure",
-    "Relaxation", "Boating", "History", "Agriculture", "Ruins",
-];
-
-// ── Road access options (matching backend enum) ─────────────────────────────
-const ROAD_ACCESS_OPTIONS = [
-    { value: "paved", label: "Paved Road" },
-    { value: "unpaved", label: "Unpaved Road" },
-    { value: "4wd_only", label: "4WD Only" },
-    { value: "foot_only", label: "Foot Only" },
-    { value: "off_road", label: "Off-Road" },
-];
-
-const SAFETY_RATINGS = [
-    { value: "high", label: "High", color: "text-emerald-400" },
-    { value: "moderate", label: "Moderate", color: "text-amber-400" },
-    { value: "low", label: "Low", color: "text-red-400" },
 ];
 
 export default function Contribute() {
