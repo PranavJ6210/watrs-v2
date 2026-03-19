@@ -17,6 +17,7 @@ import {
     LogIn,
     LogOut,
     User,
+    UserCircle,
     Menu,
     X,
 } from "lucide-react";
@@ -88,15 +89,18 @@ export default function Navbar() {
                     <div className="hidden md:flex items-center gap-3">
                         {isAuthenticated ? (
                             <>
-                                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 text-sm">
-                                    <User className="w-4 h-4 text-primary-400" />
+                                <Link
+                                    to="/profile"
+                                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 text-sm transition-colors"
+                                >
+                                    <UserCircle className="w-4 h-4 text-primary-400" />
                                     <span className="text-gray-300">
                                         {user?.name || "User"}
                                     </span>
                                     <span className="text-xs text-gray-500 bg-white/5 px-1.5 py-0.5 rounded">
                                         {role}
                                     </span>
-                                </div>
+                                </Link>
                                 <button
                                     onClick={handleLogout}
                                     className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"
@@ -161,13 +165,17 @@ export default function Navbar() {
 
                             {isAuthenticated ? (
                                 <>
-                                    <div className="flex items-center gap-2 px-3 py-2 text-sm text-gray-300">
-                                        <User className="w-4 h-4 text-primary-400" />
+                                    <Link
+                                        to="/profile"
+                                        onClick={() => setMobileOpen(false)}
+                                        className="flex items-center gap-2 px-3 py-2 text-sm text-gray-300 hover:bg-white/5 rounded-lg transition-colors"
+                                    >
+                                        <UserCircle className="w-4 h-4 text-primary-400" />
                                         {user?.name || "User"}
                                         <span className="text-xs text-gray-500 bg-white/5 px-1.5 py-0.5 rounded ml-auto">
                                             {role}
                                         </span>
-                                    </div>
+                                    </Link>
                                     <button
                                         onClick={handleLogout}
                                         className="flex items-center gap-2 w-full px-3 py-2 rounded-lg text-sm text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-colors"

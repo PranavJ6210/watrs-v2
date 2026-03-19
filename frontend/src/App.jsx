@@ -8,6 +8,7 @@
  *   /search      → Results (recommendation cards)
  *   /login       → Login page
  *   /register    → Registration page
+ *   /profile     → User dashboard (any authenticated user)
  *   /contribute  → Contributor form (Contributor+ only)
  *   /admin       → Admin dashboard (Super-Admin only)
  */
@@ -22,6 +23,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Contribute from "./pages/Contribute";
 import Admin from "./pages/Admin";
+import Profile from "./pages/Profile";
 
 export default function App() {
     return (
@@ -35,6 +37,22 @@ export default function App() {
                         <Route path="/search" element={<Search />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/register" element={<Register />} />
+
+                        {/* ── Protected: Any authenticated user ──────────── */}
+                        <Route
+                            element={
+                                <ProtectedRoute
+                                    allowedRoles={[
+                                        "Explorer",
+                                        "Contributor",
+                                        "Pathfinder",
+                                        "Super-Admin",
+                                    ]}
+                                />
+                            }
+                        >
+                            <Route path="/profile" element={<Profile />} />
+                        </Route>
 
                         {/* ── Protected: Contributor+ ────────────────────── */}
                         <Route

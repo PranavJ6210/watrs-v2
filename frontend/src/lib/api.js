@@ -310,4 +310,58 @@ export async function updateAndApproveStagingItem(id, edits) {
     return { success: true, message: `Item ${id} updated and approved.` };
 }
 
+// ═══════════════════════════════════════════════════════════════════════════
+// Profile Functions — Mock implementations
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Fetch user profile with gamification metrics.
+ * @returns {Promise<object>}
+ */
+export async function getUserProfile() {
+    // TODO: Replace with: const { data } = await api.get("/api/v1/profile");
+    await new Promise((resolve) => setTimeout(resolve, 600));
+
+    const user = JSON.parse(localStorage.getItem("watrs_user") || "{}");
+
+    // Mock stats based on role
+    const roleStats = {
+        "Super-Admin": { approved: 28, total: 30, feedbackScore: 96, trustScore: 98 },
+        "Pathfinder": { approved: 8, total: 10, feedbackScore: 88, trustScore: 85 },
+        "Contributor": { approved: 3, total: 5, feedbackScore: 72, trustScore: 60 },
+        "Explorer": { approved: 0, total: 0, feedbackScore: 0, trustScore: 10 },
+    };
+
+    const stats = roleStats[user.role] || roleStats["Explorer"];
+    const pathfinderThreshold = 5; // submissions needed for Pathfinder
+
+    return {
+        user: {
+            ...user,
+            joined_at: "2025-11-15T00:00:00Z",
+            avatar_url: null,
+        },
+        stats: {
+            trust_score: stats.trustScore,
+            approved_submissions: stats.approved,
+            total_submissions: stats.total,
+            feedback_score: stats.feedbackScore,
+            likes_received: stats.approved * 12,
+            reports_filed: Math.floor(stats.total * 0.2),
+        },
+        pathfinder: {
+            threshold: pathfinderThreshold,
+            current: Math.min(stats.approved, pathfinderThreshold),
+            unlocked: stats.approved >= pathfinderThreshold,
+        },
+        submissions: [
+            { id: "sub_001", name: "Kolukkumalai", status: "approved", submitted_at: "2026-03-15T10:30:00Z" },
+            { id: "sub_002", name: "Vattakanal", status: "approved", submitted_at: "2026-03-14T14:15:00Z" },
+            { id: "sub_003", name: "Parvathamalai", status: "pending", submitted_at: "2026-03-13T09:45:00Z" },
+            { id: "sub_004", name: "Dhanushkodi", status: "approved", submitted_at: "2026-03-10T08:20:00Z" },
+            { id: "sub_005", name: "Test Place", status: "rejected", submitted_at: "2026-03-09T16:00:00Z" },
+        ].slice(0, stats.total || 2),
+    };
+}
+
 export default api;

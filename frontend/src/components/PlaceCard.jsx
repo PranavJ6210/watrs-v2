@@ -20,6 +20,8 @@ import {
     Thermometer,
     MapPin,
     Check,
+    Award,
+    UserCheck2,
 } from "lucide-react";
 import { sendFeedback } from "../lib/api";
 import { cn } from "../lib/utils";
@@ -136,6 +138,23 @@ export default function PlaceCard({ place, score, distMeters, weatherFallback })
                         </span>
                     )}
                 </div>
+
+                {/* Submitter badge */}
+                {place.submitted_by && (
+                    <div className="flex items-center gap-1.5 mb-2">
+                        {place.submitted_by.role === "Pathfinder" ? (
+                            <span className="inline-flex items-center gap-1 text-[11px] text-purple-400">
+                                <Award className="w-3 h-3" />
+                                Verified by Pathfinder
+                            </span>
+                        ) : (
+                            <span className="inline-flex items-center gap-1 text-[11px] text-gray-500">
+                                <UserCheck2 className="w-3 h-3" />
+                                Submitted by {place.submitted_by.name}
+                            </span>
+                        )}
+                    </div>
+                )}
 
                 {/* Description */}
                 {place.description && (
